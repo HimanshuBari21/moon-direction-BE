@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   NotFoundException,
   Param,
@@ -8,6 +9,7 @@ import {
 } from '@nestjs/common';
 import {
   addCreator,
+  deleteCreator,
   getContentCreators,
   getCreatorByID,
 } from 'src/queries/creators';
@@ -41,6 +43,13 @@ export class CreatorController {
     const data = body;
     const addStatus = addCreator(data);
 
-    return addStatus ? addStatus : [];
+    return addStatus;
+  }
+
+  @Delete(':id')
+  deleteCreator(@Param('id') id: string) {
+    const deleteStatus = deleteCreator(id);
+
+    return deleteStatus;
   }
 }

@@ -15,10 +15,10 @@ export const getContentCreators = async () => {
 
 export const addCreator = async (data: creators) => {
   try {
-    await prisma.creators.create({
+    const updatedUser = await prisma.creators.create({
       data: data,
     });
-    return true;
+    return { status: 'success', message: updatedUser?.id + ': Created' };
   } catch (error) {
     return error;
   }
@@ -31,6 +31,10 @@ export const deleteCreator = async (cId: string) => {
         id: cId,
       },
     });
+    return {
+      status: 'deletion success',
+      message: cId + ': Deleted',
+    };
   } catch (error) {
     return error;
   }
