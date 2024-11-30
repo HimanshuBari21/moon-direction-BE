@@ -6,8 +6,11 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { getCreatorByID } from 'src/data/getCreatorById';
-import { getContentCreators } from 'src/data/getCreators';
+import {
+  addCreator,
+  getContentCreators,
+  getCreatorByID,
+} from 'src/queries/creators';
 
 @Controller('creator')
 export class CreatorController {
@@ -35,6 +38,9 @@ export class CreatorController {
 
   @Post()
   addCreator(@Body() body: any) {
-    return body;
+    const data = body;
+    const addStatus = addCreator(data);
+
+    return addStatus ? addStatus : [];
   }
 }
