@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { getCreatorByID } from 'src/data/getCreatorById';
 import { getContentCreators } from 'src/data/getCreators';
 
@@ -6,12 +13,24 @@ import { getContentCreators } from 'src/data/getCreators';
 export class CreatorController {
   @Get()
   findAll() {
-    return { creators: getContentCreators };
+    const creators = getContentCreators();
+
+    if (creators) {
+      return creators;
+    } else {
+      throw new NotFoundException('No users found'); // Throw a 404 error
+    }
   }
 
   @Get(':id')
   getByID(@Param('id') id: string) {
-    return getCreatorByID(id) || '404 : No Results Found!';
+    const selectedCreator = getCreatorByID(id);
+
+    if (selectedCreator) {
+      return selectedCreator;
+    } else {
+      throw new NotFoundException('No user found'); // Throw a 404 error
+    }
   }
 
   @Post()
