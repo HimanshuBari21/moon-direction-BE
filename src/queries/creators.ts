@@ -8,9 +8,13 @@ export const getCreatorByID = async (cId: string) => {
 };
 
 export const getContentCreators = async () => {
-  const creators = await prisma.creators.findMany();
+  const creators = await prisma.creators.findMany({});
 
-  return creators;
+  return creators.map((c) => {
+    const creatorCopy = { ...c };
+    delete creatorCopy.password;
+    return creatorCopy;
+  });
 };
 
 export const addCreator = async (data: creators) => {

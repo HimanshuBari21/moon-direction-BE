@@ -29,4 +29,5 @@ model creators {
   totalSubscribers Int
   updatedAt        DateTime            @db.Date
   username         String
+  password         String              
 }
