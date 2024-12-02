@@ -6,6 +6,7 @@ import {
   NotFoundException,
   Param,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import {
   addCreator,
@@ -13,7 +14,9 @@ import {
   getContentCreators,
   getCreatorByID,
 } from 'src/queries/creators';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('creator')
 export class CreatorController {
   @Get()

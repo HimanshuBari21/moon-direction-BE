@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  HttpCode,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -41,8 +40,6 @@ export class AuthService {
       throw new NotFoundException('User not found');
     }
 
-    console.log(creatorData);
-
     const isMatch = await bcrypt.compare(
       creatorData.password,
       creator.password,
@@ -52,7 +49,7 @@ export class AuthService {
     }
 
     const payload = { email: creator.username, sub: creator.id };
-    // const accessToken = this.jwtService.sign(payload);
-    return { payload };
+    const accessToken = this.jwtService.sign(payload);
+    return { accessToken };
   }
 }
