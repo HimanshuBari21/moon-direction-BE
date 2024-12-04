@@ -13,7 +13,7 @@ import {
   deleteCreator,
   getContentCreators,
   getCreatorByID,
-} from 'src/queries/creators';
+} from 'src/modules/creator/creators.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @UseGuards(JwtAuthGuard)

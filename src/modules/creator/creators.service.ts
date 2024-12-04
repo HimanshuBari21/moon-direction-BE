@@ -9,6 +9,7 @@ export const getCreatorByID = async (cId: string) => {
 
 export const getContentCreators = async () => {
   const creators = await prisma.creators.findMany({});
+  console.log(creators);
 
   return creators.map((c) => {
     const creatorCopy = { ...c };

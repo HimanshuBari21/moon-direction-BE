@@ -12,17 +12,25 @@ type CreatorsPaymentInfo {
   upiId       String?
 }
 
+enum Category {
+  Music
+  Comedy
+  Travel
+  Cooking
+  Techical
+  Educational
+}
+
 model creators {
   id               String              @id @default(auto()) @map("_id") @db.ObjectId
   bio              String
-  categories       String[]
+  categories       Category[]
   contentCount     Int
-  contentUrls      String[]
   coverImageUrl    String
   createdAt        DateTime            @db.Date
   id_              String              @map("id")
   name             String
-  paymentInfo      CreatorsPaymentInfo
+  paymentInfo      CreatorsPaymentInfo?
   profileImageUrl  String
   subscriptionFee  Int
   totalEarnings    Int
@@ -30,4 +38,21 @@ model creators {
   updatedAt        DateTime            @db.Date
   username         String
   password         String              
+  videos           Video[]
+}
+
+type VideoData {
+  bucketId String?
+  url      String?
+}
+
+model Video {
+  id          String   @id @default(uuid()) @map("_id")
+  title       String
+  description String
+  data        VideoData
+  format      String   // e.g., "HLS", "MP4"
+  createdAt   DateTime @default(now())
+  creatorId   String   @db.ObjectId
+  creator     creators @relation(fields: [creatorId], references: [id])
 }
